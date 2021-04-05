@@ -37,6 +37,7 @@ class App extends React.Component {
       blogs: [],
       error: null,
       isLoaded: false,
+      selectedBlog: null
     };
 
     this.changeView = this.changeView.bind(this);
@@ -65,14 +66,19 @@ class App extends React.Component {
       view: option,
     });
   }
+  SetCurrentBlog = (incomingBlog) => {
+    this.setState({
+      selectedBlog: incomingBlog
+    })
+  }
 
   renderView() {
     const { view } = this.state;
 
     if (view === "feed") {
-      return <Feed blogs={this.state.blogs} handleClick={() => this.changeView("anypostview")} />;
+      return <Feed blogs={this.state.blogs} handleClick={() => this.changeView("anypostview")} SetCurrentBlog={this.SetCurrentBlog}/>;
     } else {
-      return <Post />;
+      return <Post selectedBlog={this.state.selectedBlog} />;
     }
   }
   render() {
