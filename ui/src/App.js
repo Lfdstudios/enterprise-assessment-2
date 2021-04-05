@@ -34,9 +34,30 @@ class App extends React.Component {
     super();
     this.state = {
       view: "feed",
+      blogs: [],
+      error: null,
+      isLoaded: false,
     };
 
     this.changeView = this.changeView.bind(this);
+  }
+  componentDidMount() {
+    fetch("https://127.0.0.1:5000/api/blogs")
+    .then(response => response.json())
+    .then(
+      (result) => {
+        this.setState({
+          isLoaded: true,
+          blogs: result
+        });
+      },
+      (error) => {
+        this.setState({
+          isLoaded: true,
+          error
+        });
+      }
+    )
   }
 
   changeView(option) {
@@ -49,7 +70,7 @@ class App extends React.Component {
     const { view } = this.state;
 
     if (view === "feed") {
-      return <Feed handleClick={() => this.changeView("anypostview")} />;
+      return <Feed blogs={this.state.blogs} handleClick={() => this.changeView("anypostview")} />;
     } else {
       return <Post />;
     }
