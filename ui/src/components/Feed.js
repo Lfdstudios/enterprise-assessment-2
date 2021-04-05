@@ -10,6 +10,7 @@ export class Feed extends React.Component {
     console.log(id);
     let selectedBlog = this.props.blogs.filter(post => post._id === id );
     this.props.SetCurrentBlog(selectedBlog[0]);
+    // this.props.updateBlogViewCount();
     console.log(selectedBlog)
   }
 

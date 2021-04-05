@@ -2,6 +2,7 @@ import React from "react";
 
 import Post from "./components/Post";
 import Feed from "./components/Feed";
+import Admin from "./components/Admin";
 
 /*
   READ THESE COMMENTS AS A PART OF STEP TWO
@@ -61,12 +62,15 @@ class App extends React.Component {
     )
   }
 
+ 
+  
   changeView(option) {
     this.setState({
       view: option,
     });
   }
   SetCurrentBlog = (incomingBlog) => {
+    incomingBlog.views += 1;
     this.setState({
       selectedBlog: incomingBlog
     })
@@ -76,9 +80,13 @@ class App extends React.Component {
     const { view } = this.state;
 
     if (view === "feed") {
-      return <Feed blogs={this.state.blogs} handleClick={() => this.changeView("anypostview")} SetCurrentBlog={this.SetCurrentBlog}/>;
-    } else {
+      return <Feed updateBlogViewCount={this.state.updateBlogViewCount} blogs={this.state.blogs} handleClick={() => this.changeView("singleblog")} SetCurrentBlog={this.SetCurrentBlog}/>;
+    } 
+    if (view === "singleblog") {
       return <Post selectedBlog={this.state.selectedBlog} />;
+    }
+    if (view === "admin") {
+      return <Admin  blogs={this.state.blogs}/>;
     }
   }
   render() {
@@ -97,7 +105,7 @@ class App extends React.Component {
             See all Posts
           </span>
           <span className="nav-unselected">Write a Post</span>
-          <span className="nav-unselected">Admin</span>
+          <span className="nav-unselected"  onClick={() => this.changeView("admin")}>Admin</span>
         </div>
 
         <div className="main">{this.renderView()}</div>

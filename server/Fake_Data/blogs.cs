@@ -40,5 +40,13 @@ namespace server
 
             return blogs;
         }
+        static public void UpdateBlog(int views, string _id){
+            foreach (var blog in blogs)
+            {
+                if (blog._id == _id){
+                    blog.views = views;
+                }
+            }
+        }
     }
 }

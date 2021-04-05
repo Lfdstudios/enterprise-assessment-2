@@ -16,16 +16,11 @@ namespace server.Controllers
         {
             return FakeData.getBlogs();
         }
-        // [HttpGet("{_id}")]
-        // public async Task<ActionResult<Blog>> GetBlogItem(string _id)
-        // {
-        //     var blogItem = blogItems.FindAsync(_id);
-        //     if (blogItem == null)
-        //     {
-        //         return NotFound();
-        //     }
-        //     return Blog(blogItem);
-        // }
+        [HttpPut("api/blogs/update")]
+        public void Put(Blog blog)
+        {
+            FakeData.UpdateBlog(blog.views, blog._id);
+        }
 
 
     }
